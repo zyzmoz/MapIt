@@ -2,9 +2,11 @@
   <form #f="ngForm" (ngSubmit)="onSubmit(f)">
     <input name="name" placeholder="Company Name" ngModel>    
     <input name="lat" type="number" placeholder="Latitude" ngModel> 
-    <input name="lng" type="number" placeholder="Longitude" ngModel> 
-    <input name="draggable" type="checkbox" name="draggable" ngModel > <label for="">Draggable</label>    
-    <button class="button"  type="submit">Save</button>
+    <input name="lng" type="number" placeholder="Longitude" ngModel>     
+    <span class="draggable">
+      <input  name="draggable" type="checkbox" name="draggable" id="draggable" ngModel><label for="draggable">Draggable</label>
+      <button class="button"  type="submit">Save</button>
+    </span>
   </form>
 </div>
 <sebm-google-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [disableDefaultUI]="false"  [zoomControl]="false" (mapClick)="mapClicked($event)">

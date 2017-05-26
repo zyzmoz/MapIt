@@ -28,3 +28,29 @@ body {
     box-shadow: 2px 2px 2px silver;
 
 }
+
+
+
+@media screen and (max-width : 520px){
+    .menu {
+        margin-left: 12.5%;
+        width: 75%;
+    }
+    .menu  input {
+        width: 45%;
+        margin: 2px;        
+    }
+    .draggable{
+        width: 50%;
+    }
+    .draggable input{
+        width: auto;
+    }
+
+    .menu button {
+        width: 100%;
+        display: block;
+    }
+
+
+}
