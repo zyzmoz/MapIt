@@ -1,3 +1,26 @@
-<h1>
-  {{title}}
-</h1>
+<div class="menu">
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <input name="name" placeholder="Company Name" ngModel>    
+    <input name="lat" type="number" placeholder="Latitude" ngModel> 
+    <input name="lng" type="number" placeholder="Longitude" ngModel> 
+    <input name="draggable" type="checkbox" name="draggable" ngModel > <label for="">Draggable</label>    
+    <button class="button"  type="submit">Save</button>
+  </form>
+</div>
+<sebm-google-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [disableDefaultUI]="false"  [zoomControl]="false" (mapClick)="mapClicked($event)">
+  <sebm-google-map-marker 
+    *ngFor="let m of markers; let i = index"
+    (markerClick)="clickedMarker(m, i)"
+    [latitude]="m.lat" 
+    [longitude]="m.lng"
+    [markerDraggable]="m.draggable"
+    (dragEnd)="markerDragEnd(m, $event, i)"
+  >
+    <sebm-google-map-info-window>
+      <strong>{{m.name}}</strong>
+      <br>
+      <a class="red" (click)="deleteMarker(i)">&#10006; Remove</a>
+    </sebm-google-map-info-window>
+  </sebm-google-map-marker>
+</sebm-google-map>
+
