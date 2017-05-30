@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { MarkersService } from './providers/markers.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [MarkersService]
 })
 export class AppComponent {
   //Zoom level
@@ -14,31 +16,35 @@ export class AppComponent {
   lng: number = -47.379803;
 
   //Markers
-  markers: marker[] = [
-    {
-      name: 'Compsoft',
-      lat: -22.360525,
-      lng: -47.379803,
-      draggable: true
+  markers: marker[]; 
+  // = [
+  //   {
+  //     name: 'Compsoft',
+  //     lat: -22.360525,
+  //     lng: -47.379803,
+  //     draggable: true
 
-    },
-    {
-      name: 'Company One',
-      lat: 42.825588,
-      lng: -71.018029,
-      draggable: true    
+  //   },
+  //   {
+  //     name: 'Company One',
+  //     lat: 42.825588,
+  //     lng: -71.018029,
+  //     draggable: true    
 
-    },
-    {
-      name: 'Company two',
-      lat: 42.868164,
-      lng: -70.889071,
-      draggable: false
+  //   },
+  //   {
+  //     name: 'Company two',
+  //     lat: 42.868164,
+  //     lng: -70.889071,
+  //     draggable: false
 
-    }
-  ];
+  //   }
+  // ];
 
-  constructor(){
+  constructor(private mrkService : MarkersService){
+    this.markers = this.mrkService.getMarkers();
+    console.log(this.markers);
+    
 
   }
 
@@ -54,12 +60,17 @@ export class AppComponent {
       draggable: false
     }
 
-    this.markers.push(newMarker);
+    // this.markers.push(newMarker);
+    this.mrkService.newMarker(newMarker);
+    this.markers = this.mrkService.getMarkers();
   }
 
   public onSubmit(form : NgForm): void {
     console.log(form.value);
-    this.markers.push(form.value);
+    //this.markers.push(form.value);
+    this.mrkService.newMarker(form.value);
+    form.reset();
+    this.markers = this.mrkService.getMarkers();
     
   }
 
@@ -74,14 +85,21 @@ export class AppComponent {
     var newLat = $event.coords.lat;
     var newLng = $event.coords.lng;
 
-    this.markers[i].lat = newLat; 
-    this.markers[i].lng = newLng;
+    this.mrkService.updateMarker(newLat, newLng, i);
+    this.markers = this.mrkService.getMarkers();
+
+    // this.markers[i].lat = newLat; 
+    // this.markers[i].lng = newLng;
 
 
   }
 
   deleteMarker(i){
-    this.markers.splice(i,1);
+    // this.markers.splice(i,1);
+    this.mrkService.removeMarker(i);
+    this.markers = this.mrkService.getMarkers();
+    
+    //
   }
 
 

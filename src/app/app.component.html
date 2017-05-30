@@ -1,12 +1,38 @@
 <div class="menu">
   <form #f="ngForm" (ngSubmit)="onSubmit(f)">
-    <input name="name" placeholder="Company Name" ngModel>    
-    <input name="lat" type="number" placeholder="Latitude" ngModel> 
-    <input name="lng" type="number" placeholder="Longitude" ngModel>     
-    <span class="draggable">
-      <input  name="draggable" type="checkbox" name="draggable" id="draggable" ngModel><label for="draggable">Draggable</label>
-      <button class="button"  type="submit">Save</button>
-    </span>
+    <div class="row">      
+    
+      <div class="col-lg-3">
+        <div class="input-group">          
+          <input name="name" placeholder="Company Name" ngModel>        
+        </div>      
+      </div>
+      <div class="col-lg-3">
+        <div class="input-group">          
+          <input name="lat" type="number" placeholder="Latitude" ngModel>     
+        </div>
+      </div>
+
+      <div class="col-lg-3">
+        <div class="input-group">          
+          <input name="lng" type="number" placeholder="Longitude" ngModel>         
+        </div>
+      </div>
+
+      <div class="col-lg-2">
+        <div class="input-group">
+          <span class="draggable">
+            <input  name="draggable" type="checkbox" name="draggable" id="draggable" ngModel><label for="draggable">Draggable</label>
+            
+          </span>    
+        </div>
+      </div>
+      <div class="col-lg-1">
+        <button class="button"  type="submit">Save</button>
+      </div>
+    </div>
+        
+    
   </form>
 </div>
 <sebm-google-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [disableDefaultUI]="false"  [zoomControl]="false" (mapClick)="mapClicked($event)">
